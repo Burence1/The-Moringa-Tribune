@@ -23,7 +23,7 @@ def convert_dates(dates):
 def past_days_news(request,past_date):
    #Converts data from the string Url
   try:
-      date=dt.datetime.strptime(past_date,'%Y-%m-%d').date()
+      date=dt.datetime.strptime(past_date,'%y-%m-%d').date()
   except ValueError:
       # Raise 404 error when ValueError is thrown
       raise Http404()
