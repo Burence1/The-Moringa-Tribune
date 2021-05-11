@@ -1,3 +1,4 @@
+from news.views import article
 from django.test import TestCase
 from .models import Article,Editor,tags
 import datetime as dt
@@ -44,3 +45,21 @@ class ArticleTestClass(TestCase):
       date = dt.datetime.strptime(test_date, '%Y-%m-%d').date()
       news_by_date = Article.days_news(date)
       self.assertTrue(len(news_by_date) == 0)
+
+  def test_delete_article(self):
+      self.new_article.save_article()
+      articles=Article.objects.all()
+      self.assertEqual(len(articles),1)
+      self.new_article.delete_article()
+      new_articles=Article.objects.all()
+      self.assertEqual(len(new_articles),0)
+  
+  def test_displaying_todays_news(self):
+      self.new_article.save_article()
+      self.assertEqual(len(Article.todays_news()),1)
+
+  def test_updating_article(self):
+      self.new_article.save_article()
+      self.new_article.update_article(self.new_article.id,'latest')
+      update= Article.objects.get(title='latest')
+      self.assertEqual(update.title,'latest')
