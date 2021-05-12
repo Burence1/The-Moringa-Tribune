@@ -15,10 +15,17 @@
 
     {% if articles %}
     {% for article in articles %}
-    <div class="col-sm-6 col-md-3">
-      <h1>{{article.title}}</h1>
-      <p>{{article.post}}</p>
-      <img src="{{article.article_image.url}}" class="img-responsive" alt="Image">
+    <div class="card" style="width: 25em;">
+    <!--Display news Article images  -->
+    <div class="image">
+      <img src="{{article.article_image.url}}" class="img-responsive" alt="Image" id="img">
+    </div>
+    <div class="card-body">
+      <div style="text-align: center;">
+        <h2 class="text-center"><strong>{{ article.title }}</strong> </h2>
+        <p>{{ article.post }}</p>
+      </div>
+    </div>
     </div>
     {% endfor %}
     {% endif %}

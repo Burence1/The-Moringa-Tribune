@@ -19,6 +19,11 @@ class EditorTestClass(TestCase):
     self.Burens.save_editor()
     editors=Editor.objects.all()
     self.assertTrue(len(editors)>0)
+  
+  def tearDown(self):
+    Editor.objects.all().delete()
+    tags.objects.all().delete()
+    Article.objects.all().delete()
 
 class ArticleTestClass(TestCase):
   def setUp(self):
