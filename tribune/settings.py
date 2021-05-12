@@ -92,7 +92,7 @@ WSGI_APPLICATION = 'tribune.wsgi.application'
 if config('MODE')=="dev":
    DATABASES = {
        'default': {
-           'ENGINE': 'django.db.backends.postgres_psycopg2',
+           'ENGINE': 'django.db.backends.postgresql_psycopg2',
            'NAME': config('DB_NAME'),
            'USER': config('DB_USER'),
            'PASSWORD': config('DB_PASSWORD'),
@@ -103,9 +103,7 @@ if config('MODE')=="dev":
    }
 # production
 else:
-   DATABASES = {'default': dj_database_url.config(default=config('DATABASE_URL')
-       )
-   }
+   DATABASES = {'default': dj_database_url.config(default=config('postgresql://drvaloyxlvgsqr:99570846bf892a6291a1dd7f9ee8aa2658aeb83997642240ae3ffb44248b5146@ec2-54-164-238-108.compute-1.amazonaws.com:5432/db43idd26icno8?sslmode=require'))}
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
