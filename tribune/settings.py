@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'tribune.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# development
+#development
 if config('MODE') == "dev":
    DATABASES = {
        'default': {
@@ -97,7 +97,7 @@ if config('MODE') == "dev":
            'USER': config('DB_USER'),
            'PASSWORD': config('DB_PASSWORD'),
            'HOST': config('DB_HOST'),
-           'PORT': '',
+           'PORT': 5432,
        }
 
    }
