@@ -8,14 +8,20 @@
 {% for news_item in news %}
 
 <div class="row">
-  <div class="col-md-2"></div>
   <!-- displaying News articles -->
-  <div class="col-xs-6 col-sm-6 col-md-8 col-lg-6">
-    <h2 class="text-center"> {{ news_item.title }} </h2>
-    <p class="text-center">{{news_item.post}} </p>
-    <!-- </div> -->
-    <div class="col-md-2"></div>
+  <div class="card" style="width: 25em;">
+    <!--Display news Article images  -->
+    <div class="image">
+      <img src="{{news_item.article_image.url}}" class="img-responsive" alt="Image" id="img">
+    </div>
+    <div class="card-body">
+      <div style="text-align: center;">
+        <h2 class="text-center"><strong>{{ news_item.title }}</strong> </h2>
+        <p>{{ news_item.post }}</p>
+      </div>
+    </div>
   </div>
+</div>
 
   {% empty %}
   <div class="row">
