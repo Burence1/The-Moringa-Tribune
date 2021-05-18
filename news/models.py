@@ -63,3 +63,7 @@ class Article(models.Model):
   def update_article(cls,id,title):
     update = cls.objects.filter(id=id).update(title=title)
     return update
+
+class NewsLetterRecipients(models.Model):
+  name=models.CharField(max_length=30)
+  email=models.EmailField()

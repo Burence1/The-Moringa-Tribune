@@ -1,13 +1,21 @@
+from django import forms
 from django.shortcuts import render,redirect
-from django.http import HttpResponse,Http404
+from django.http import HttpResponse,Http404,HttpResponseRedirect
 import datetime as dt
 from .models import Article
+from .forms import  NewsLetterForm
 
 # Create your views here.
 def news_today(request):
   date=dt.date.today()
   news = Article.todays_news()
-  return render(request, 'all-news/today-news.html', {"date": date, "news":news})
+  if request.method == 'POST':
+    form = NewsLetterForm(request.POST)
+    if form.is_valid():
+      print("valid")
+    else:
+      form=NewsLetterForm()
+  return render(request, 'all-news/today-news.html', {"date": date, "news":news,"letterForm":form})
 
 def convert_dates(dates):
   # Function that gets the weekday number for the date.
