@@ -2,12 +2,9 @@
 {% load bootstrap5 %}
 {% block content %}
 {{ block.super}}
-
 <div class="container">
-
   <!-- Looping through news   -->
   {% for news_item in news %}
-
   <div class="row">
     <!-- displaying News articles -->
     <div class="card" style="width: 25em;">
@@ -16,10 +13,10 @@
             <img src="{{news_item.article_image.url}}" class="img-responsive" alt="Image" id="img">
           </div>
       <div class="card-body">
-            <div style="text-align: center;">
-              <h2 class="text-center"><strong>{{ news_item.title }}</strong> </h2>
-              <p>{{ news_item.post }}</p>
-            </div>
+        <div style="text-align: center;">
+          <h2 class="text-center"><strong>{{ news_item.title }}</strong> </h2>
+          <p>{{ news_item.post }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -31,13 +28,10 @@
 </div>
 <!-- Looping through news end   -->
 <div class="container-fluid">
-
   <form action="{%url 'newsToday'%}" method="post">
     {%csrf_token%}
-
     {% bootstrap_form letterForm layout='inline' %}
     <input type="submit" value="Subscribe">
   </form>
-
 </div>
 {% endblock %}

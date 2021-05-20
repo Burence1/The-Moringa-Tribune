@@ -7,7 +7,8 @@ urlpatterns = [
   path('',views.news_today,name='newsToday'),
   re_path('archives/(\d{4}-\d{2}-\d{2})/',views.past_days_news,name = 'pastNews'),
   path('search/',views.search_results,name='search_results'),
-  path('article/(\d+)', views.article, name='article')
+  path('article/(\d+)', views.article, name='article'),
+  path('new-article',views.new_article, name='new-article'),
 ]
 
 if settings.DEBUG:
