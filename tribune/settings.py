@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     'news.apps.NewsConfig',
     'bootstrap5',
     'cloudinary',
-    'tinymce'
+    'tinymce',
+    'rest_framework',
 ]
 cloudinary.config(
     cloud_name="burens",

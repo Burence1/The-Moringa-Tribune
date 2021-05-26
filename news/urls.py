@@ -9,6 +9,8 @@ urlpatterns = [
   path('search/',views.search_results,name='search_results'),
   path('article/(\d+)', views.article, name='article'),
   path('new-article',views.new_article, name='new-article'),
+  path('ajax/newsletter/', views.newsletter, name='newsletter'),
+  path('api/merch/', views.MerchList.as_view()),
 ]
 
 if settings.DEBUG:
