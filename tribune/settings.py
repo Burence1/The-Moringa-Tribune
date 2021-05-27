@@ -54,7 +54,15 @@ INSTALLED_APPS = [
     'cloudinary',
     'tinymce',
     'rest_framework',
+    'rest_framework.authtoken',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
+
 cloudinary.config(
     cloud_name="burens",
     api_key="727223526185189",

@@ -1,3 +1,4 @@
+from typing_extensions import ParamSpecKwargs
 from django import forms
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,Http404,HttpResponseRedirect,JsonResponse
@@ -13,6 +14,9 @@ from rest_framework.views import APIView
 from .models import MoringaMerch
 from .serializer import MerchSerializer
 from rest_framework import status
+from .permissions import IsAdminOrReadOnly
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
 
 # Create your views here.
 def news_today(request):
@@ -109,8 +113,65 @@ class MerchList(APIView):
 
   def post(self,request,format=None):
     serializers = MerchSerializer(data=request.data)
+    permission_classes = (IsAdminOrReadOnly,)
     if serializers.is_valid():
       serializers.save()
       return Response(serializers.data, status=status.HTTP_201_CREATED)
     return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
+
+class MerchDescription(APIView):
+    permission_classes = (IsAdminOrReadOnly,)
+
+    def get_merch(self, pk):
+        try:
+            return MoringaMerch.objects.get(pk=pk)
+        except MoringaMerch.DoesNotExist:
+            return Http404
+
+    def get(self, request, pk, format=None):
+        merch = self.get_merch(pk)
+        serializers = MerchSerializer(merch)
+        return Response(serializers.data)
+
+    def put(self, request, pk, format=None):
+        merch = self.get_merch(pk)
+        serializers = MerchSerializer(merch, request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data)
+        else:
+            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        merch = self.get_merch(pk)
+        merch.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+# @api_view(['GET','POST','PUT','DELETE'])
+# @csrf_exempt
+# def merchlistApi(request,pk):
+#   try:
+#     merch=MoringaMerch.objects.get(pk=pk)
+#   except MoringaMerch.DoesNotExist:
+#     raise Http404()
+#   if request.method =='GET':
+#     all_merch=MoringaMerch.objects.all()
+#     serializers=MerchSerializer(all_merch,many=True)
+#     return Response(serializers.data)
+
+#   elif request.method == 'POST':
+#     serializers=MerchSerializer(data=request.data)
+#     permission_classes=(IsAdminOrReadOnly,)
+#     if serializers.is_valid():
+#       serializers.save()
+#       return Response(serializers.data, status=status.HTTP_201_CREATED)
+#     return Response(serializers.errors,status=status.HTTP_400_BAD_REQUEST)
+
+#   elif request.method =='PUT':
+#     serializers=MerchSerializer(merch,request.data)
+#     if serializers.is_valid():
+#       serializers.save()
+#       return Response(serializers.data)
+#     else:
+#       return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)

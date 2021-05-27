@@ -10,7 +10,10 @@ urlpatterns = [
   path('article/(\d+)', views.article, name='article'),
   path('new-article',views.new_article, name='new-article'),
   path('ajax/newsletter/', views.newsletter, name='newsletter'),
-  path('api/merch/', views.MerchList.as_view()),
+  path('api/merch/merch-id/<int:pk>/',views.MerchDescription.as_view())
+  # path('api/merch/', views.MerchList.as_view()),
+  # re_path('api/merch/merch-id/(?P<pk>[0-9]+)/',
+  #     views.MerchDescription.as_view())
 ]
 
 if settings.DEBUG:
